@@ -1,0 +1,41 @@
+# SHACL shapes for FIBO contracts — Semlayer demo.
+#
+# Semlayer discovers these at publish and serves them to the validation client
+# alongside the ontology, so a data producer validates against the exact
+# version they pinned. The engine is pySHACL, running client-side: the data
+# being checked never leaves the machine it is on.
+
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ctr:  <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/> .
+@prefix demo: <https://semlayer.io/shapes/fibo-demo/> .
+
+demo:ContractShape
+    a sh:NodeShape ;
+    rdfs:label "Contract completeness" ;
+    rdfs:comment "Minimum record-keeping rules for a FIBO contract." ;
+    sh:targetClass ctr:Contract ;
+
+    sh:property [
+        sh:path ctr:hasContractParty ;
+        sh:minCount 2 ;
+        sh:severity sh:Violation ;
+        sh:message "A contract must record at least two parties."
+    ] ;
+
+    sh:property [
+        sh:path ctr:hasGoverningJurisdiction ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "A contract must name exactly one governing jurisdiction."
+    ] ;
+
+    sh:property [
+        sh:path ctr:isAssignable ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "isAssignable must be a single boolean value."
+    ] .
