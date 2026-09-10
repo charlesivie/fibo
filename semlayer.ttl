@@ -6,6 +6,7 @@
 
 @prefix dcat:    <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
 
 <> a dcat:Catalog ;
     dcat:dataset <#fibo> .
@@ -13,6 +14,7 @@
 <#fibo> a dcat:Dataset ;
     dcterms:title "Financial Industry Business Ontology (FIBO)" ;
     dcterms:identifier <https://spec.edmcouncil.org/fibo/ontology/> ;
+    sh:shapesGraph <shapes.ttl> ;
     dcat:distribution
         [ dcat:downloadURL <ACTUS/ACTUS-examples.ttl> ] ,
         [ dcat:downloadURL <ACTUS/ACTUSContractTermMapping.rdf> ] ,
